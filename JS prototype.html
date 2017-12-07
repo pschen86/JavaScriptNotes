@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>JS中的原型</title>
+    </head>
+    <body>
+        <div>
+            对象都是通过函数创建的，对象属性可以随时改动的。注意：构造函数的函数名第一个字母大写（规则约定）
+            函数是一种对象，也是属性的集合，可以对函数进行自定义属性。
+            JS中所有东西都对象，任何一个对象都是有一个原型的
+            所有通过对象字面量创建的对象都连接到object.prototype这个JS中标准的对象
+            查看原型使用 __proto__
+            函数是Function的实例对象，由Function构造出来，函数的原型Function.prototype
+            Function是Object的实例对象，原型最终指向Object.prototype
+            Object.prototype.__proto__ === null 原型链至此结束。
+
+            Function/Object：JS自带的函数对象
+            prototype：每一个函数对象都有一个显式的prototype属性，它代表了对象的原型
+                prototype的属性值是一个对象（属性的集合），默认只一个constructor的属性，指向这个函数本身
+                function Fn(){}
+                    Fn.prototype.name = 'pschen';
+                    Fn.prototype.getYear = function(){
+                        return 1979;
+                    };
+                var fn = new Fn();
+
+            __proto__：每个对象都有一个名为__proto__的内部隐藏属性，引用了创建这个对象的函数的prototype fn.__proto__ === Fn.prototype,指向于创建它的函数的原型对象（prototype）。原型链正是基于__proto__才得形成
+                函数也是一种对象，是由"Function"创建
+                function fn1(x,y){
+                    return x + y;
+                };
+                var fn2 = new Function("x","y","return x + y;");    //不推荐使用此方式
+                console.log(fn2(5,6));
+
+
+                继承：JS的中的继承是通过原型链来体现的。
+                    访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着__proto__这条链向上找，这就是原型链。
+                    如何判断属性是基本还是原型中找到的，使用hasOwnProperty()
+        </div>
+    </body>
+</html>
